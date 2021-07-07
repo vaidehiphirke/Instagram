@@ -35,5 +35,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/etPassword"
         android:layout_margin="@dimen/layout_margin"
-        android:text="@string/button_text" />
+        android:text="@string/button_text_login" />
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnLogin"
+        android:layout_margin="@dimen/layout_margin"
+        android:text="@string/button_text_register" />
 </RelativeLayout>

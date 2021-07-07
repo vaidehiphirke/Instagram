@@ -14,6 +14,7 @@ import com.example.instagram.databinding.ActivityLoginBinding;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -35,13 +36,24 @@ public class LoginActivity extends AppCompatActivity {
         etUsername = loginBinding.etUsername;
         etPassword = loginBinding.etPassword;
         final Button btnLogin = loginBinding.btnLogin;
+        final Button btnRegister = loginBinding.btnRegister;
 
         btnLogin.setOnClickListener(new LoginButtonViewOnClickListener());
+        btnRegister.setOnClickListener(new RegisterButtonViewOnClickListener());
     }
 
     private void loginUser(String username, String password) {
         Log.i(TAG, "Attempted to login user " + username);
         ParseUser.logInInBackground(username, password, new InstagramLogInCallback());
+    }
+
+    private void registerUser(String username, String password) {
+        Log.i(TAG, "Attempting to register user " + username);
+
+        final ParseUser newUser = new ParseUser();
+        newUser.setUsername(username);
+        newUser.setPassword(password);
+        newUser.signUpInBackground(new InstagramSignUpCallback());
     }
 
     private void goToMainActivity() {
@@ -61,6 +73,17 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    private class RegisterButtonViewOnClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View view) {
+            Log.i(TAG, "onClick register button");
+            final String username = etUsername.getText().toString();
+            final String password = etPassword.getText().toString();
+            registerUser(username, password);
+        }
+    }
+
     private class InstagramLogInCallback implements LogInCallback {
 
         @Override
@@ -68,6 +91,20 @@ public class LoginActivity extends AppCompatActivity {
             if (e != null) {
                 Log.e(TAG, "Issue with login", e);
                 Toast.makeText(LoginActivity.this, "Issue with login", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            goToMainActivity();
+            Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private class InstagramSignUpCallback implements SignUpCallback {
+
+        @Override
+        public void done(ParseException e) {
+            if (e != null) {
+                Log.e(TAG, "Issue with registration", e);
+                Toast.makeText(LoginActivity.this, "Issue with registration", Toast.LENGTH_SHORT).show();
                 return;
             }
             goToMainActivity();
