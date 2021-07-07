@@ -3,4 +3,5 @@
     <string name="username">username</string>
     <string name="password">password</string>
     <string name="button_text">Login</string>
+    <string name="button_text_logout">Log out</string>
 </resources>
