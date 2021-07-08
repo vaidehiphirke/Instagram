@@ -1,45 +1,27 @@
 package com.example.instagram.activities;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
-
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.instagram.R;
 import com.example.instagram.databinding.ActivityMainBinding;
-import com.example.instagram.models.Post;
+import com.example.instagram.fragments.ComposeFragment;
+import com.example.instagram.fragments.PostsFragment;
+import com.example.instagram.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.parse.ParseException;
-import com.parse.ParseFile;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
-
-import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String TAG = "MainActivity";
-    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 27;
-    private static final int EMPTY_RESOURCE_ID = 0;
-    private static final String PHOTO_FILE_NAME = "photo.jpg";
-    private EditText etDescription;
-    private ImageView ivPostImage;
-    private File photoFile;
+    private final FragmentManager fragmentManager = getSupportFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,46 +29,10 @@ public class MainActivity extends AppCompatActivity {
         final ActivityMainBinding mainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(mainBinding.getRoot());
 
-        final Button btnLogout = mainBinding.btnLogout;
-        btnLogout.setOnClickListener(new LogoutButtonViewOnClickListener());
-
-        etDescription = mainBinding.etDescription;
-        ivPostImage = mainBinding.ivPostImage;
-
-        mainBinding.btnCaptureImage.setOnClickListener(new CameraOnClickListener());
-        mainBinding.btnSubmit.setOnClickListener(new PostCreationOnClickListener());
+        mainBinding.btnLogout.setOnClickListener(new LogoutButtonViewOnClickListener());
 
         mainBinding.bottomNavigation.setOnNavigationItemSelectedListener(new InstagramBottomMenuItemSelectedListener());
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        final boolean isRequestCodeValid = requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE;
-        if (isRequestCodeValid && resultCode != RESULT_OK) {
-            Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (isRequestCodeValid) {
-            final Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
-            ivPostImage.setImageBitmap(takenImage);
-        }
-    }
-
-    private File getPhotoFileUri(String photoFileName) {
-        final File mediaStorageDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
-        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
-            Log.d(TAG, "failed to created directory");
-        }
-        return new File(mediaStorageDir.getPath() + File.separator + photoFileName);
-    }
-
-    private void savePost(String description, ParseUser currentUser, File photoFile) {
-        final Post post = new Post();
-        post.setDescription(description);
-        post.setImage(new ParseFile(photoFile));
-        post.setUser(currentUser);
-        post.saveInBackground(new SavePostSaveCallback());
+        mainBinding.bottomNavigation.setSelectedItemId(R.id.action_home);
     }
 
     private void goToLoginActivity() {
@@ -103,65 +49,26 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private class PostCreationOnClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            final String description = etDescription.getText().toString();
-            if (description.isEmpty()) {
-                Toast.makeText(MainActivity.this, "Description cannot be empty", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (photoFile == null || ivPostImage.getDrawable() == null) {
-                Toast.makeText(MainActivity.this, "There is no image!", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            final ParseUser currentUser = ParseUser.getCurrentUser();
-            savePost(description, currentUser, photoFile);
-        }
-    }
-
-    private class SavePostSaveCallback implements SaveCallback {
-        @Override
-        public void done(ParseException e) {
-            if (e != null) {
-                Log.e(TAG, "Error while saving", e);
-                Toast.makeText(MainActivity.this, "Error while saving", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            Toast.makeText(MainActivity.this, "Post saved", Toast.LENGTH_SHORT).show();
-            etDescription.setText("");
-            ivPostImage.setImageResource(EMPTY_RESOURCE_ID);
-        }
-    }
-
-    private class CameraOnClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            photoFile = getPhotoFileUri(PHOTO_FILE_NAME);
-            final Uri fileProvider = FileProvider.getUriForFile(MainActivity.this, "com.codepath.fileprovider", photoFile);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
-            if (intent.resolveActivity(getPackageManager()) != null) {
-                startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-            }
-        }
-    }
-
     private class InstagramBottomMenuItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            final Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.action_home:
                     Toast.makeText(MainActivity.this, "Home", Toast.LENGTH_SHORT).show();
+                    fragment = new PostsFragment();
                     break;
                 case R.id.action_compose:
                     Toast.makeText(MainActivity.this, "Compose", Toast.LENGTH_SHORT).show();
+                    fragment = new ComposeFragment();
                     break;
                 case R.id.action_profile:
-                    Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_SHORT).show();
                 default:
+                    Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_SHORT).show();
+                    fragment = new ProfileFragment();
                     break;
             }
+            fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
             return true;
         }
     }

@@ -6,50 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
-    <ImageView
-        android:id="@+id/ivPostImage"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/img_size"
-        android:layout_margin="@dimen/layout_margin"
-        android:contentDescription="@string/img_content_descr"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <EditText
-        android:id="@+id/etDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ivPostImage"
-        android:layout_margin="@dimen/layout_margin"
-        android:autofillHints="description"
-        android:ems="@dimen/text_size"
-        android:hint="@string/description"
-        android:inputType="text" />
-
-    <Button
-        android:id="@+id/btnCaptureImage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etDescription"
-        android:layout_margin="@dimen/layout_margin"
-        android:text="@string/button_text_take_photo" />
-
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnCaptureImage"
-        android:layout_margin="@dimen/layout_margin"
-        android:text="@string/button_text_submit_post" />
-
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/layout_margin"
+        android:layout_above="@+id/bottomNavigation"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="@dimen/logout_button_top"
+        android:layout_marginTop="@dimen/logout_top_border"
         android:layout_marginEnd="@dimen/layout_margin"
         android:text="@string/button_text_logout" />
+
+    <FrameLayout
+        android:id="@+id/flContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomNavigation" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
