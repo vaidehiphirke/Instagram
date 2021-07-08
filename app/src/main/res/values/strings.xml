@@ -5,4 +5,8 @@
     <string name="button_text_login">Login</string>
     <string name="button_text_logout">Log out</string>
     <string name="button_text_register">Register</string>
+    <string name="img_content_descr">Image to be posted</string>
+    <string name="description">Description...</string>
+    <string name="button_text_take_photo">Take Picture</string>
+    <string name="button_text_submit_post">Post</string>
 </resources>

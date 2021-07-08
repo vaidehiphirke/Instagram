@@ -2,5 +2,6 @@
 <resources>
     <dimen name="layout_margin">16dp</dimen>
     <dimen name="logout_button_top">547dp</dimen>
+    <dimen name="img_size">200dp</dimen>
     <item name="text_size" format="integer" type="dimen">10</item>
 </resources>
