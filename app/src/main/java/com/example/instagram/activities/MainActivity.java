@@ -1,5 +1,6 @@
 package com.example.instagram.activities;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
@@ -12,14 +13,17 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.instagram.R;
 import com.example.instagram.databinding.ActivityMainBinding;
 import com.example.instagram.models.Post;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -47,32 +51,23 @@ public class MainActivity extends AppCompatActivity {
         btnLogout.setOnClickListener(new LogoutButtonViewOnClickListener());
 
         etDescription = mainBinding.etDescription;
-        final Button btnCaptureImage = mainBinding.btnCaptureImage;
         ivPostImage = mainBinding.ivPostImage;
-        final Button btnSubmit = mainBinding.btnSubmit;
 
-        btnCaptureImage.setOnClickListener(new CameraOnClickListener());
-        btnSubmit.setOnClickListener(new PostCreationOnClickListener());
-    }
+        mainBinding.btnCaptureImage.setOnClickListener(new CameraOnClickListener());
+        mainBinding.btnSubmit.setOnClickListener(new PostCreationOnClickListener());
 
-    private void launchCamera() {
-        final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        photoFile = getPhotoFileUri(PHOTO_FILE_NAME);
-        final Uri fileProvider = FileProvider.getUriForFile(MainActivity.this, "com.codepath.fileprovider", photoFile);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-        }
+        mainBinding.bottomNavigation.setOnNavigationItemSelectedListener(new InstagramBottomMenuItemSelectedListener());
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-            if (resultCode != RESULT_OK) {
-                Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
-                return;
-            }
+        final boolean isRequestCodeValid = requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE;
+        if (isRequestCodeValid && resultCode != RESULT_OK) {
+            Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (isRequestCodeValid) {
             final Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
             ivPostImage.setImageBitmap(takenImage);
         }
@@ -122,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
             }
             final ParseUser currentUser = ParseUser.getCurrentUser();
             savePost(description, currentUser, photoFile);
-
         }
     }
 
@@ -132,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
             if (e != null) {
                 Log.e(TAG, "Error while saving", e);
                 Toast.makeText(MainActivity.this, "Error while saving", Toast.LENGTH_SHORT).show();
+                return;
             }
             Toast.makeText(MainActivity.this, "Post saved", Toast.LENGTH_SHORT).show();
             etDescription.setText("");
@@ -142,8 +137,32 @@ public class MainActivity extends AppCompatActivity {
     private class CameraOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            launchCamera();
+            final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            photoFile = getPhotoFileUri(PHOTO_FILE_NAME);
+            final Uri fileProvider = FileProvider.getUriForFile(MainActivity.this, "com.codepath.fileprovider", photoFile);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+            }
         }
     }
 
+    private class InstagramBottomMenuItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.action_home:
+                    Toast.makeText(MainActivity.this, "Home", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.action_compose:
+                    Toast.makeText(MainActivity.this, "Compose", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.action_profile:
+                    Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_SHORT).show();
+                default:
+                    break;
+            }
+            return true;
+        }
+    }
 }

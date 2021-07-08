@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -35,11 +34,9 @@ public class LoginActivity extends AppCompatActivity {
 
         etUsername = loginBinding.etUsername;
         etPassword = loginBinding.etPassword;
-        final Button btnLogin = loginBinding.btnLogin;
-        final Button btnRegister = loginBinding.btnRegister;
 
-        btnLogin.setOnClickListener(new LoginButtonViewOnClickListener());
-        btnRegister.setOnClickListener(new RegisterButtonViewOnClickListener());
+        loginBinding.btnLogin.setOnClickListener(new LoginButtonViewOnClickListener());
+        loginBinding.btnRegister.setOnClickListener(new RegisterButtonViewOnClickListener());
     }
 
     private void loginUser(String username, String password) {

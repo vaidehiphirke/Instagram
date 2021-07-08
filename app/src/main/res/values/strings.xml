@@ -6,7 +6,10 @@
     <string name="button_text_logout">Log out</string>
     <string name="button_text_register">Register</string>
     <string name="img_content_descr">Image to be posted</string>
-    <string name="description">Description...</string>
+    <string name="description">Description…</string>
     <string name="button_text_take_photo">Take Picture</string>
     <string name="button_text_submit_post">Post</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_compose">Compose</string>
+    <string name="menu_profile">Profile</string>
 </resources>

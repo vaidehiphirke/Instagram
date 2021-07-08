@@ -51,4 +51,11 @@
         android:layout_marginEnd="@dimen/layout_margin"
         android:text="@string/button_text_logout" />
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/menu_bottom_navigation" />
+
 </RelativeLayout>
