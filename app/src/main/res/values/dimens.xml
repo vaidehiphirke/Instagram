@@ -4,5 +4,8 @@
     <dimen name="logout_button_top">547dp</dimen>
     <dimen name="img_size">200dp</dimen>
     <dimen name="logout_top_border">497dp</dimen>
+    <dimen name="posts_padding">8dp</dimen>
+    <dimen name="post_size">300dp</dimen>
+    <dimen name="description_margin">5dp</dimen>
     <item name="text_size" format="integer" type="dimen">10</item>
 </resources>
