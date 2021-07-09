@@ -18,12 +18,11 @@ import com.example.instagram.databinding.FragmentPostsBinding;
 import com.example.instagram.models.Post;
 import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostsFragment extends Fragment {
+public abstract class PostsFragment extends Fragment {
 
     public static final String TAG = "PostsFragment";
     protected static final int MAX_NUMBER_OF_POSTS_ALLOWED = 20;
@@ -67,13 +66,7 @@ public class PostsFragment extends Fragment {
         queryPosts();
     }
 
-    protected void queryPosts() {
-        final ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-        query.include(Post.KEY_USER);
-        query.setLimit(MAX_NUMBER_OF_POSTS_ALLOWED);
-        query.addDescendingOrder(Post.KEY_CREATED_AT);
-        query.findInBackground(new RetrievePostsFindCallback());
-    }
+    protected abstract void queryPosts();
 
     protected class RetrievePostsFindCallback implements FindCallback<Post> {
         @Override

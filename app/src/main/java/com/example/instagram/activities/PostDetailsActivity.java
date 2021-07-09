@@ -2,8 +2,6 @@ package com.example.instagram.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,16 +17,10 @@ public class PostDetailsActivity extends AppCompatActivity {
         final ActivityPostDetailsBinding postDetailsBinding = ActivityPostDetailsBinding.inflate(getLayoutInflater());
         setContentView(postDetailsBinding.getRoot());
 
-        final TextView tvUsername = postDetailsBinding.tvUsername;
-        final ImageView ivImage = postDetailsBinding.ivImage;
-        final TextView tvDescription = postDetailsBinding.tvDescription;
-        final TextView tvTimestamp = postDetailsBinding.tvTimestamp;
-
         final Intent intent = getIntent();
-        tvUsername.setText(intent.getStringExtra(Post.KEY_USER));
-        tvDescription.setText(intent.getStringExtra(Post.KEY_DESCRIPTION));
-        tvTimestamp.setText(intent.getStringExtra(Post.KEY_CREATED_AT));
-        Glide.with(this).load(intent.getStringExtra(Post.KEY_IMAGE)).into(ivImage);
-
+        postDetailsBinding.tvUsername.setText(intent.getStringExtra(Post.KEY_USER));
+        postDetailsBinding.tvDescription.setText(intent.getStringExtra(Post.KEY_DESCRIPTION));
+        postDetailsBinding.tvTimestamp.setText(intent.getStringExtra(Post.KEY_CREATED_AT));
+        Glide.with(this).load(intent.getStringExtra(Post.KEY_IMAGE)).into(postDetailsBinding.ivImage);
     }
 }

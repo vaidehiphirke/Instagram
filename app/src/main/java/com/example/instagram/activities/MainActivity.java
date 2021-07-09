@@ -13,7 +13,7 @@ import androidx.fragment.app.FragmentManager;
 import com.example.instagram.R;
 import com.example.instagram.databinding.ActivityMainBinding;
 import com.example.instagram.fragments.ComposeFragment;
-import com.example.instagram.fragments.PostsFragment;
+import com.example.instagram.fragments.FeedFragment;
 import com.example.instagram.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.ParseUser;
@@ -53,15 +53,15 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             final Fragment fragment;
             switch (item.getItemId()) {
-                case R.id.action_home:
-                    fragment = new PostsFragment();
+                case R.id.action_profile:
+                    fragment = new ProfileFragment();
                     break;
                 case R.id.action_compose:
                     fragment = new ComposeFragment();
                     break;
-                case R.id.action_profile:
+                case R.id.action_home:
                 default:
-                    fragment = new ProfileFragment();
+                    fragment = new FeedFragment();
                     break;
             }
             fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
