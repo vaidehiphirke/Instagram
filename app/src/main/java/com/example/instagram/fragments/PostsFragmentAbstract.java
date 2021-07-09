@@ -22,7 +22,7 @@ import com.parse.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class PostsFragment extends Fragment {
+public abstract class PostsFragmentAbstract extends Fragment {
 
     public static final String TAG = "PostsFragment";
     protected static final int MAX_NUMBER_OF_POSTS_ALLOWED = 20;
@@ -31,7 +31,7 @@ public abstract class PostsFragment extends Fragment {
     private List<Post> allPosts;
     private SwipeRefreshLayout swipeContainer;
 
-    public PostsFragment() {
+    public PostsFragmentAbstract() {
         // Required empty public constructor
     }
 

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.example.instagram.R;
 import com.example.instagram.databinding.ActivityPostDetailsBinding;
 import com.example.instagram.models.Post;
 
@@ -16,6 +17,10 @@ public class PostDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         final ActivityPostDetailsBinding postDetailsBinding = ActivityPostDetailsBinding.inflate(getLayoutInflater());
         setContentView(postDetailsBinding.getRoot());
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.instagram_word_logo);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         final Intent intent = getIntent();
         postDetailsBinding.tvUsername.setText(intent.getStringExtra(Post.KEY_USER));

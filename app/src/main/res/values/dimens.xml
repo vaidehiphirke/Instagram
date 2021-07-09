@@ -8,6 +8,13 @@
     <dimen name="post_size">300dp</dimen>
     <dimen name="description_margin">5dp</dimen>
     <dimen name="detail_padding">16dp</dimen>
-    <dimen name="timestamp_border">154dp</dimen>
+    <dimen name="timestamp_border">137dp</dimen>
+    <dimen name="big_text_size">18sp</dimen>
+    <dimen name="small_text_size">14sp</dimen>
+    <dimen name="logo_width">322dp</dimen>
+    <dimen name="logo_height">130dp</dimen>
+    <dimen name="logo_start">40dp</dimen>
+    <dimen name="logo_top_margin">112dp</dimen>
+    <dimen name="logo_bottom_margin">-30dp</dimen>
     <item name="text_size" format="integer" type="dimen">10</item>
 </resources>

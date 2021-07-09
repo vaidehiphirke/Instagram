@@ -3,14 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:layout_height="match_parent"
     tools:context=".activities.LoginActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="@dimen/logo_width"
+        android:layout_height="@dimen/logo_height"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="@dimen/logo_start"
+        android:layout_marginTop="@dimen/logo_top_margin"
+        android:layout_marginBottom="@dimen/logo_bottom_margin"
+        android:contentDescription="@string/app_name"
+        android:cropToPadding="true"
+        app:srcCompat="@drawable/instagram_word_logo" />
 
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/imageView"
         android:layout_margin="@dimen/layout_margin"
         android:autofillHints="username"
         android:ems="@dimen/text_size"
@@ -34,7 +48,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etPassword"
-        android:layout_margin="@dimen/layout_margin"
+        android:layout_marginStart="@dimen/layout_margin"
+        android:layout_marginTop="@dimen/layout_margin"
+        android:layout_marginEnd="@dimen/layout_margin"
+        android:layout_marginBottom="@dimen/layout_margin"
+        android:backgroundTint="@android:color/holo_blue_light"
         android:text="@string/button_text_login" />
 
     <Button
@@ -42,6 +60,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnLogin"
-        android:layout_margin="@dimen/layout_margin"
+        android:layout_marginStart="@dimen/layout_margin"
+        android:layout_marginTop="@dimen/layout_margin"
+        android:layout_marginEnd="@dimen/layout_margin"
+        android:layout_marginBottom="@dimen/layout_margin"
+        android:backgroundTint="@android:color/holo_green_light"
         android:text="@string/button_text_register" />
+
 </RelativeLayout>

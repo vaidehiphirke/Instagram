@@ -28,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
         final ActivityMainBinding mainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(mainBinding.getRoot());
 
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.instagram_word_logo);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         mainBinding.btnLogout.setOnClickListener(new LogoutButtonViewOnClickListener());
 
         mainBinding.bottomNavigation.setOnNavigationItemSelectedListener(new InstagramBottomMenuItemSelectedListener());

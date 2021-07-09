@@ -3,7 +3,7 @@ package com.example.instagram.fragments;
 import com.example.instagram.models.Post;
 import com.parse.ParseQuery;
 
-public class FeedFragment extends PostsFragment {
+public class FeedFragment extends PostsFragmentAbstract {
 
     @Override
     protected void queryPosts() {

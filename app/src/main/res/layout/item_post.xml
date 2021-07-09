@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="@string/username" />
+        android:text="@string/username"
+        android:textSize="@dimen/big_text_size" />
 
     <ImageView
         android:id="@+id/ivImage"

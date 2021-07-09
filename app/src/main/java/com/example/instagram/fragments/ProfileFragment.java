@@ -4,7 +4,7 @@ import com.example.instagram.models.Post;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-public class ProfileFragment extends PostsFragment {
+public class ProfileFragment extends PostsFragmentAbstract {
 
     @Override
     protected void queryPosts() {

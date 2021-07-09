@@ -15,6 +15,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/logout_top_border"
         android:layout_marginEnd="@dimen/layout_margin"
+        android:backgroundTint="@android:color/holo_blue_light"
         android:text="@string/button_text_logout" />
 
     <FrameLayout
@@ -28,6 +29,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        app:itemIconTint="@color/black"
+        app:itemTextColor="@color/black"
         app:menu="@menu/menu_bottom_navigation" />
 
 </RelativeLayout>

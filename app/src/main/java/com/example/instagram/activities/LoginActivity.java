@@ -1,13 +1,13 @@
 package com.example.instagram.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.instagram.databinding.ActivityLoginBinding;
 import com.parse.LogInCallback;
@@ -24,6 +24,9 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         if (ParseUser.getCurrentUser() != null) {
             goToMainActivity();
@@ -91,7 +94,6 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
             goToMainActivity();
-            Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -105,7 +107,6 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
             goToMainActivity();
-            Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_SHORT).show();
         }
     }
 }
