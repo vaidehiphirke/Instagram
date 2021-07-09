@@ -25,7 +25,7 @@ import java.util.List;
 public class PostsFragment extends Fragment {
 
     public static final String TAG = "PostsFragment";
-    private static final int MAX_NUMBER_OF_POSTS_ALLOWED = 20;
+    protected static final int MAX_NUMBER_OF_POSTS_ALLOWED = 20;
     private FragmentPostsBinding postsBinding;
     private PostsAdapter adapter;
     private List<Post> allPosts;
@@ -57,7 +57,7 @@ public class PostsFragment extends Fragment {
         queryPosts();
     }
 
-    private void queryPosts() {
+    protected void queryPosts() {
         final ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
         query.setLimit(MAX_NUMBER_OF_POSTS_ALLOWED);
@@ -65,7 +65,7 @@ public class PostsFragment extends Fragment {
         query.findInBackground(new RetrievePostsFindCallback());
     }
 
-    private class RetrievePostsFindCallback implements FindCallback<Post> {
+    protected class RetrievePostsFindCallback implements FindCallback<Post> {
         @Override
         public void done(List<Post> posts, ParseException e) {
             if (e != null) {
