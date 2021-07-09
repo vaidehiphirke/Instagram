@@ -7,5 +7,7 @@
     <dimen name="posts_padding">8dp</dimen>
     <dimen name="post_size">300dp</dimen>
     <dimen name="description_margin">5dp</dimen>
+    <dimen name="detail_padding">16dp</dimen>
+    <dimen name="timestamp_border">154dp</dimen>
     <item name="text_size" format="integer" type="dimen">10</item>
 </resources>
