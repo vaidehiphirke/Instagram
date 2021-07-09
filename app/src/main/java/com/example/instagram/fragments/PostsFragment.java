@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.instagram.adapters.PostsAdapter;
 import com.example.instagram.databinding.FragmentPostsBinding;
@@ -29,6 +30,7 @@ public class PostsFragment extends Fragment {
     private FragmentPostsBinding postsBinding;
     private PostsAdapter adapter;
     private List<Post> allPosts;
+    private SwipeRefreshLayout swipeContainer;
 
     public PostsFragment() {
         // Required empty public constructor
@@ -54,6 +56,14 @@ public class PostsFragment extends Fragment {
         adapter = new PostsAdapter(getContext(), allPosts);
         rvPosts.setAdapter(adapter);
         rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        swipeContainer = postsBinding.swipeContainer;
+        swipeContainer.setOnRefreshListener(this::queryPosts);
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
         queryPosts();
     }
 
@@ -75,8 +85,10 @@ public class PostsFragment extends Fragment {
             for (Post post : posts) {
                 Log.i(TAG, "Post " + post.getDescription() + ", username: " + post.getUser().getUsername());
             }
+            adapter.clear();
             allPosts.addAll(posts);
             adapter.notifyDataSetChanged();
+            swipeContainer.setRefreshing(false);
         }
     }
 }
